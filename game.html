@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Juego Romántico 💜</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(180deg,#14051f,#2a1042,#12051d);
+    min-height:100vh;
+    overflow-x:hidden;
+    color:white;
+}
+
+.game-section{
+    width:100%;
+    padding:100px 10%;
+    position:relative;
+}
+
+.title{
+    text-align:center;
+    font-size:5rem;
+    color:#f3d7ff;
+    margin-bottom:20px;
+    text-shadow:0 0 20px #c084fc;
+}
+
+.subtitle{
+    text-align:center;
+    font-size:1.3rem;
+    color:#f5e9ff;
+    max-width:900px;
+    margin:auto;
+    line-height:1.8;
+}
+
+.levels{
+    margin-top:80px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.level-card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:30px;
+    padding:40px;
+    text-align:center;
+    backdrop-filter:blur(15px);
+    transition:0.5s;
+    position:relative;
+    overflow:hidden;
+}
+
+.level-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+    45deg,
+    transparent,
+    rgba(255,255,255,0.1),
+    transparent
+    );
+    transform:translateX(-100%);
+    transition:0.7s;
+}
+
+.level-card:hover::before{
+    transform:translateX(100%);
+}
+
+.level-card:hover{
+    transform:translateY(-10px) scale(1.03);
+    box-shadow:0 0 30px rgba(192,132,252,0.4);
+}
+
+.level-icon{
+    font-size:5rem;
+    margin-bottom:20px;
+    animation:float 3s infinite ease-in-out;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-10px);
+    }
+    100%{
+        transform:translateY(0);
+    }
+}
+
+.level-card h3{
+    font-size:2rem;
+    margin-bottom:20px;
+    color:#f0abfc;
+}
+
+.level-card p{
+    line-height:1.8;
+    color:#f5e9ff;
+}
+
+.message-box{
+    margin-top:100px;
+    text-align:center;
+    background:rgba(255,255,255,0.08);
+    padding:60px;
+    border-radius:40px;
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+.message-box h2{
+    font-size:4rem;
+    margin-bottom:20px;
+    color:#f3d7ff;
+}
+
+.message-btn{
+    margin-top:30px;
+    padding:18px 45px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(45deg,#9333ea,#d946ef);
+    color:white;
+    font-size:1.2rem;
+    cursor:pointer;
+    transition:0.4s;
+    box-shadow:0 0 20px rgba(168,85,247,0.6);
+}
+
+.message-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 35px rgba(216,180,254,0.9);
+}
+
+#message{
+    margin-top:40px;
+    font-size:2rem;
+    color:#f5d0fe;
+    min-height:80px;
+    transition:0.5s;
+}
+
+.final-boss{
+    margin-top:120px;
+    padding:80px;
+    text-align:center;
+    border-radius:40px;
+    background:linear-gradient(
+    180deg,
+    rgba(168,85,247,0.2),
+    rgba(217,70,239,0.08)
+    );
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+.final-boss h2{
+    font-size:5rem;
+    color:#f3d7ff;
+}
+
+.final-boss p{
+    margin-top:40px;
+    font-size:1.5rem;
+    line-height:2;
+    color:#f5e9ff;
+}
+
+.final-text{
+    margin-top:50px;
+    font-size:2rem;
+    color:#f0abfc;
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%{
+        opacity:0.5;
+    }
+    50%{
+        opacity:1;
+    }
+    100%{
+        opacity:0.5;
+    }
+}
+
+.stars{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+}
+
+.star{
+    position:absolute;
+    color:white;
+    opacity:0.4;
+    animation:twinkle 4s infinite;
+}
+
+@keyframes twinkle{
+    0%{
+        opacity:0.2;
+    }
+    50%{
+        opacity:1;
+    }
+    100%{
+        opacity:0.2;
+    }
+}
+
+@media(max-width:900px){
+
+    .title{
+        font-size:3rem;
+    }
+
+    .message-box h2{
+        font-size:2.5rem;
+    }
+
+    .final-boss h2{
+        font-size:3rem;
+    }
+
+    .final-boss{
+        padding:40px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<section class="game-section">
+
+<h1 class="title">
+El Juego de Nuestro Amor 💜
+</h1>
+
+<p class="subtitle">
+Una pequeña aventura hecha especialmente para ti.
+Porque incluso si la distancia existe,
+siempre voy a caminar a tu lado.
+</p>
+
+<div class="levels">
+
+<div class="level-card">
+<div class="level-icon">🌷</div>
+<h3>Nivel 1</h3>
+<p>
+Encontré a la persona más hermosa del mundo.
+Desde ese momento todo comenzó a sentirse diferente.
+</p>
+</div>
+
+<div class="level-card">
+<div class="level-icon">🎮</div>
+<h3>Nivel 2</h3>
+<p>
+Nuestro dúo favorito.
+Porque contigo hasta las partidas más difíciles
+se sienten especiales.
+</p>
+</div>
+
+<div class="level-card">
+<div class="level-icon">💜</div>
+<h3>Nivel 3</h3>
+<p>
+Desbloqueaste felicidad infinita,
+amor eterno y el lugar más seguro de mi corazón.
+</p>
+</div>
+
+<div class="level-card">
+<div class="level-icon">✨</div>
+<h3>Nivel 4</h3>
+<p>
+Tus abrazos se convirtieron en mi hogar,
+incluso cuando no puedo tenerte cerca.
+</p>
+</div>
+
+<div class="level-card">
+<div class="level-icon">🌙</div>
+<h3>Nivel 5</h3>
+<p>
+Cada noche hablando contigo
+se volvió una de mis partes favoritas del día.
+</p>
+</div>
+
+<div class="level-card">
+<div class="level-icon">🤍</div>
+<h3>Nivel Final</h3>
+<p>
+No importa la distancia,
+nunca estarás sola.
+Siempre voy a estar contigo.
+</p>
+</div>
+
+</div>
+
+<div class="message-box">
+
+<h2>Minijuego 💌</h2>
+
+<p>
+Presiona el botón para recibir un mensaje especial.
+</p>
+
+<button class="message-btn" onclick="newMessage()">
+Abrir mensaje ✨
+</button>
+
+<div id="message">
+Aquí aparecerá un mensaje bonito 💜
+</div>
+
+</div>
+
+<div class="final-boss">
+
+<h2>
+Boss Final: La Distancia 🌌
+</h2>
+
+<p>
+A veces no podemos abrazarnos,
+ni vernos todos los días,
+pero eso jamás cambiará lo que siento por ti.
+<br><br>
+Porque el amor no se mide en kilómetros.
+Se mide en cuánto decides quedarte,
+amar y cuidar a alguien incluso desde lejos.
+<br><br>
+Y yo siempre voy a elegirte a ti.
+</p>
+
+<div class="final-text">
+Misión completada:
+Encontré al amor de mi vida 💜
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+const messages = [
+
+"Eres mi lugar favorito 💜",
+"Nunca estarás sola 🌷",
+"Te elegiría en todas las vidas ✨",
+"Gracias por existir 🤍",
+"Nuestro amor merece skin legendaria 🎮",
+"Tus abrazos son mi hogar 💌",
+"Siempre voy a estar contigo 🌙"
+
+];
+
+function newMessage(){
+
+const random =
+Math.floor(Math.random()*messages.length);
+
+document.getElementById('message')
+.innerHTML = messages[random];
+
+}
+
+const stars = document.getElementById('stars');
+
+for(let i=0;i<80;i++){
+
+const star = document.createElement('div');
+
+star.classList.add('star');
+
+star.innerHTML='✦';
+
+star.style.left=Math.random()*100+'vw';
+star.style.top=Math.random()*100+'vh';
+
+star.style.fontSize=(5+Math.random()*15)+'px';
+
+star.style.animationDuration=
+(2+Math.random()*5)+'s';
+
+stars.appendChild(star);
+
+}
+
+</script>
+
+</body>
+</html>
